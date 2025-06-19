@@ -8,10 +8,10 @@ module.exports.config = {
   version: "1.0.0",
   permission: 0,
   credits: "RAKIB BOSS",
-  description: "Remove image background",
+  description: "Remove image background using remove.bg",
   prefix: true,
   category: "edit",
-  usages: "[reply to image]",
+  usages: "[reply image]",
   cooldowns: 5,
   dependencies: {}
 };
@@ -25,31 +25,36 @@ module.exports.run = async function ({ api, event }) {
 
   const attachment = messageReply.attachments[0];
   if (attachment.type !== "photo") {
-    return api.sendMessage("❌ শুধু ছবির ব্যাকগ্রাউন্ড রিমুভ করা যাবে।", threadID, messageID);
+    return api.sendMessage("❌ কেবল ছবির ব্যাকগ্রাউন্ড রিমুভ করা যাবে।", threadID, messageID);
   }
 
   const imageUrl = attachment.url;
-  const inputPath = path.join(__dirname, "cache", `input.png`);
-  const outputPath = path.join(__dirname, "cache", `no-bg.png`);
+  const inputPath = path.join(__dirname, "cache", "input.png");
+  const outputPath = path.join(__dirname, "cache", "output.png");
 
   try {
-    const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
-    fs.writeFileSync(inputPath, Buffer.from(response.data, "utf-8"));
+    const imgRes = await axios.get(imageUrl, { responseType: "arraybuffer" });
+    fs.writeFileSync(inputPath, imgRes.data);
 
     const formData = new FormData();
-    formData.append("size", "auto");
     formData.append("image_file", fs.createReadStream(inputPath));
+    formData.append("size", "auto");
 
-    const removeBgApiKey = "8363232gMABFwkQdA5HACD9c"; // 👉 https://www.remove.bg/api#api-reference
-    const result = await axios.post("https://api.remove.bg/v1.0/removebg", formData, {
+    const API_KEY = "8363232gMABFwkQdA5HACD9c"; // 🔥 Replace this line!
+
+    const response = await axios.post("https://api.remove.bg/v1.0/removebg", formData, {
       responseType: "arraybuffer",
       headers: {
         ...formData.getHeaders(),
-        "X-Api-Key": removeBgApiKey
+        "X-Api-Key": API_KEY
       }
     });
 
-    fs.writeFileSync(outputPath, result.data);
+    if (response.status !== 200) {
+      return api.sendMessage("❌ ব্যাকগ্রাউন্ড রিমুভ করা যায়নি। API KEY সঠিক কিনা চেক করুন।", threadID, messageID);
+    }
+
+    fs.writeFileSync(outputPath, response.data);
 
     api.sendMessage({
       body: "✅ ব্যাকগ্রাউন্ড সফলভাবে রিমুভ করা হয়েছে!",
@@ -60,6 +65,6 @@ module.exports.run = async function ({ api, event }) {
     });
   } catch (err) {
     console.error(err);
-    return api.sendMessage("❌ ব্যাকগ্রাউন্ড রিমুভ করতে সমস্যা হয়েছে। API KEY সঠিক আছে কিনা চেক করুন।", threadID, messageID);
+    return api.sendMessage("❌ কিছু ভুল হয়েছে। API Key ভুল বা ছবির ফরম্যাট সঠিক নয় হতে পারে।", threadID, messageID);
   }
 };
