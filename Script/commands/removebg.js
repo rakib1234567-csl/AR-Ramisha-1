@@ -1,70 +1,69 @@
-const axios = require("axios");
-const fs = require("fs-extra");
-const path = require("path");
-const FormData = require("form-data");
 
-module.exports.config = {
-  name: "rbg",
-  version: "1.0.0",
-  permission: 0,
-  credits: "RAKIB BOSS",
-  description: "Remove image background using remove.bg",
-  prefix: true,
-  category: "edit",
-  usages: "[reply image]",
-  cooldowns: 5,
-  dependencies: {}
+
+const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs-extra');
+const path = require('path');
+const {image} = require('image-downloader');
+
+
+module.exports.run = async function({
+    api, event, args
+}){
+    try {
+      var tpk = `🖼️=== [ REMOVING BACKGROUND ] ===🖼️
+━━━━━━━━━━━━━━━
+[⚜️]➜ Api By MOHAMMAD NAYAN`;
+        if (event.type !== "message_reply") return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
+        if (!event.messageReply.attachments || event.messageReply.attachments.length == 0) return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
+        if (event.messageReply.attachments[0].type != "photo") return api.sendMessage("[⚜️]➜ This is not an image", event.threadID, event.messageID);
+
+        const content = (event.type == "message_reply") ? event.messageReply.attachments[0].url : args.join(" ");
+        const KeyApi = ["qReKoWSpkMAi2vbi6RUEHctA","ho37vvCUppqTKcyfjbLXnt4t","ytr2ukWQW2YrXV8dshPbA8cE"]
+        const inputPath = path.resolve(__dirname, 'cache', `photo.png`);
+         await image({
+        url: content, dest: inputPath
+    });
+        const formData = new FormData();
+        formData.append('size', 'auto');
+        formData.append('image_file', fs.createReadStream(inputPath), path.basename(inputPath));
+        axios({
+            method: 'post',
+            url: 'https://api.remove.bg/v1.0/removebg',
+            data: formData,
+            responseType: 'arraybuffer',
+            headers: {
+                ...formData.getHeaders(),
+                'X-Api-Key': KeyApi[Math.floor(Math.random() * KeyApi.length)],
+            },
+            encoding: null
+        })
+            .then((response) => {
+                if (response.status != 200) return console.error('Error:', response.status, response.statusText);
+                fs.writeFileSync(inputPath, response.data);
+                return api.sendMessage({body:tpk, attachment: fs.createReadStream(inputPath)},event.threadID, () => fs.unlinkSync(inputPath));
+            })
+            .catch((error) => {
+                return console.error('Request failed:', error);
+            });
+     } catch (e) {
+        console.log(e)
+        return api.sendMessage(`[⚜️]➜ Nayan Server Is Busy Now`, event.threadID, event.messageID);
+  }
 };
 
-module.exports.run = async function ({ api, event }) {
-  const { threadID, messageID, messageReply } = event;
-
-  if (!messageReply || !messageReply.attachments || messageReply.attachments.length === 0) {
-    return api.sendMessage("📌 অনুগ্রহ করে কোনো ছবির রিপ্লাই দিন এই কমান্ডটি ব্যবহার করতে।", threadID, messageID);
-  }
-
-  const attachment = messageReply.attachments[0];
-  if (attachment.type !== "photo") {
-    return api.sendMessage("❌ কেবল ছবির ব্যাকগ্রাউন্ড রিমুভ করা যাবে।", threadID, messageID);
-  }
-
-  const imageUrl = attachment.url;
-  const inputPath = path.join(__dirname, "cache", "input.png");
-  const outputPath = path.join(__dirname, "cache", "output.png");
-
-  try {
-    const imgRes = await axios.get(imageUrl, { responseType: "arraybuffer" });
-    fs.writeFileSync(inputPath, imgRes.data);
-
-    const formData = new FormData();
-    formData.append("image_file", fs.createReadStream(inputPath));
-    formData.append("size", "auto");
-
-    const API_KEY = "8363232gMABFwkQdA5HACD9c"; // 🔥 Replace this line!
-
-    const response = await axios.post("https://api.remove.bg/v1.0/removebg", formData, {
-      responseType: "arraybuffer",
-      headers: {
-        ...formData.getHeaders(),
-        "X-Api-Key": API_KEY
-      }
-    });
-
-    if (response.status !== 200) {
-      return api.sendMessage("❌ ব্যাকগ্রাউন্ড রিমুভ করা যায়নি। API KEY সঠিক কিনা চেক করুন।", threadID, messageID);
+module.exports.config = {
+    name: "removebg",
+    version: "1.0.0",
+    permission: 0,
+    credits: "Nayan",
+    description: "",
+    prefix: true,
+    category: "prefix",
+    usages: "reply",
+    cooldowns: 10,
+    dependencies: {
+       'form-data': '',
+       'image-downloader': ''
     }
-
-    fs.writeFileSync(outputPath, response.data);
-
-    api.sendMessage({
-      body: "✅ ব্যাকগ্রাউন্ড সফলভাবে রিমুভ করা হয়েছে!",
-      attachment: fs.createReadStream(outputPath)
-    }, threadID, () => {
-      fs.unlinkSync(inputPath);
-      fs.unlinkSync(outputPath);
-    });
-  } catch (err) {
-    console.error(err);
-    return api.sendMessage("❌ কিছু ভুল হয়েছে। API Key ভুল বা ছবির ফরম্যাট সঠিক নয় হতে পারে।", threadID, messageID);
-  }
 };
