@@ -159,7 +159,7 @@ try{
  if(body.startsWith("Ramisha") || body.startsWith("bby") || body.startsWith("Bot")){
  const arr = body.replace(/^\S+\s*/, "")
  if(!arr) {
- await api.sendMessage("╭•┄┅══❁AR❁══┅┄•╮\n  হুম ${name} জান\n বলো, আমি তোমার অপেক্ষায় আছি __ღ༉۵\n╰•┄┅══❁AR❁══┅┄•╯ ", event.threadID, (error, info) => {
+ await api.sendMessage("╭•┄┅══❁AR❁══┅┄•╮\n  হুম জান\n বলো, আমি তোমার অপেক্ষায় আছি __ღ༉۵\n╰•┄┅══❁AR❁══┅┄•╯ ", event.threadID, (error, info) => {
  global.client.handleReply.push({
  name: this.config.name,
  type: "reply",
