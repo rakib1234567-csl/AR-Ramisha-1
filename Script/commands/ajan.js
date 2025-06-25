@@ -15,7 +15,7 @@ module.exports.config = {
 module.exports.onLoad = function ({ api }) {
   const messages = [
     {
-      time: "5:00",
+      time: "4:50",
       message: `╭•┄┅══❁🪷❁══┅┄•╮
 •—»✨ফজরে আজান✨«—•
 ╰•┄┅══❁🪷❁══┅┄•╯
@@ -29,7 +29,7 @@ module.exports.onLoad = function ({ api }) {
 ╰─╼╾═ঔৣ۝ঔৣ═╼╾─╯`
     },
     {
-      time: "1:00",
+      time: "1:15",
       message: `╭•┄┅══❁🪷❁══┅┄•╮
 •—»✨যোহর-এর আজান✨«—•
 ╰•┄┅══❁🪷❁══┅┄•╯
@@ -59,7 +59,7 @@ module.exports.onLoad = function ({ api }) {
 ╰─╼╾═ঔৣ۝ঔৣ═╼╾─╯`
     },
     {
-      time: "7:00",
+      time: "6:50",
       message: `╭•┄┅══❁🪷❁══┅┄•╮
 •—»✨মাগরিব-এর আজান✨«—•
 ╰•┄┅══❁🪷❁══┅┄•╯
@@ -74,7 +74,7 @@ module.exports.onLoad = function ({ api }) {
 ╰─╼╾═ঔৣ۝ঔৣ═╼╾─╯`
     },
     {
-      time: "7:30",
+      time: "8:15",
       message: `╭•┄┅══❁🪷❁══┅┄•╮
 •—»✨এশা-এর আজান✨«—•
 ╰•┄┅══❁🪷❁══┅┄•╯
