@@ -156,10 +156,10 @@ try{
 module.exports.handleEvent = async function ({ api, event }) {
 try{
  const body = event.body ? event.body.toLowerCase() : ""
- if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("/bot")){
+ if(body.startsWith("Ramisha") || body.startsWith("bby") || body.startsWith("Bot")){
  const arr = body.replace(/^\S+\s*/, "")
  if(!arr) {
- await api.sendMessage("hum xan bolo ami asi ", event.threadID, (error, info) => {
+ await api.sendMessage("╭•┄┅══❁AR❁══┅┄•╮\n  হুম ${name} জান\n বলো, আমি তোমার অপেক্ষায় আছি __ღ༉۵\n╰•┄┅══❁AR❁══┅┄•╯ ", event.threadID, (error, info) => {
  global.client.handleReply.push({
  name: this.config.name,
  type: "reply",
