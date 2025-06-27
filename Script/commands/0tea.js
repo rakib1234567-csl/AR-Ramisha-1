@@ -14,7 +14,7 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
   var { threadID, messageID } = event;
   if (event.body.indexOf("tea")==0 || event.body.indexOf("Tea")==0 || event.body.indexOf("Cha")==0 || event.body.indexOf("চা")==0) {
     var msg = {
-        body: "ai Lo Bby ☕",
+        body: "╭•┄┅══❁🌻❁══┅┄•╮\n ☕অউ নেউ জান, আমাদের গ্রুপের পক্ষ থেকে আপনাকে চা ☕🫖দেওয়া হইলো ☕☕🌺\n╰•┄┅══❁🌻❁══┅┄•╯",
         attachment: fs.createReadStream(__dirname + `/noprefix/tea.mp4`)
       }
       api.sendMessage(msg, threadID, messageID);
