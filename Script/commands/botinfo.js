@@ -60,9 +60,9 @@ ${adminList.join("\n")}
 `;
 
   const imgLinks = [
-    "https://i.imgur.com/WXQIgMz.jpeg",
-    "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
-    "https://i.imgur.com/RIyZ5Km.jpg"
+    "https://i.imgur.com/WnQIgMz.jpeg",
+    "https://i.imgur.com/Sfgz5EM.gif",
+    "https://i.imgur.com/RjyZ5Km.jpg"
   ];
   const imageURL = imgLinks[Math.floor(Math.random() * imgLinks.length)];
   const imagePath = __dirname + "/cache/kensu.gif";
