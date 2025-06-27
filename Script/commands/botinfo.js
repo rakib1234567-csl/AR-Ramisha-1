@@ -60,9 +60,7 @@ ${adminList.join("\n")}
 `;
 
   const imgLinks = [
-    "https://i.imgur.com/WnQIgMz.jpeg",
-    "https://i.imgur.com/Sfgz5EM.gif",
-    "https://i.imgur.com/RjyZ5Km.jpg"
+    "https://i.imgur.com/Sfgz5EM.gif"
   ];
   const imageURL = imgLinks[Math.floor(Math.random() * imgLinks.length)];
   const imagePath = __dirname + "/cache/kensu.gif";
