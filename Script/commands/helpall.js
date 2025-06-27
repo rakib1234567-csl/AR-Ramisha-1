@@ -16,12 +16,12 @@ module.exports.run = async function({ api, event }) {
   const { threadID, messageID } = event;
 
   const msg = `
-╭━━[ 𝐀𝐑 𝐁𝐎𝐓 𝐌𝐄𝐍𝐔 ]━━╮
-┃ 📚 Command List & Info
-┃ 🔰 Total Commands: 300+
-┃ 🔎 Use: -help [name]
-┃ 📄 Page: 1/1
-╰━━━━━━━━━━━━━━━━━━╯
+╭━━[𝐁𝐎𝐓 𝐌𝐄𝐍𝐔 ]━━╮
+📚 Command List & Info
+🔰 Total Commands: 300+
+🔎 Use: -help [name]
+📄 Page: 1/1
+╰━━━━━━━━━━━━━━━╯
 
 🔹 𝙐𝙨𝙚𝙛𝙪𝙡 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 🔹
 •—» [ help ] «—•
@@ -47,9 +47,12 @@ module.exports.run = async function({ api, event }) {
 
 📝 Tip: Type ‘-help command_name’ to know more.
 
-━━━━━━━━━━━━━━━━━━━━━
-📂 File by: RAKIB BOSS 💖
-🔗 AR Bot | Always With You 🌙
+━━━━━━━━━━━━━━━━━
+📂 File by: 
+RAKIB BOSS 💖
+
+🔗 AR Bot 
+| Always With You 🌙
 `;
 
   const gifPath = path.join(__dirname, "cache", "kensu.gif");
