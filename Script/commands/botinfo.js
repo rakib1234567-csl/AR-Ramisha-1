@@ -1,217 +1,76 @@
-module.exports.config = {
- name: "botinfo",
- version: "1.2.6",
- hasPermssion: 0,
- credits: "RAKIB BOSS",
- description: "bot information",
- commandCategory: "For users",
- hide:true,
- usages: "",
- cooldowns: 5,
-};
-
-
-module.exports.run = async function ({ api, event, args, Users, permssion, getText ,Threads}) {
- const content = args.slice(1, args.length);
- const { threadID, messageID, mentions } = event;
- const { configPath } = global.client;
- const { ADMINBOT } = global.config;
- const { NDH } = global.config;
- const { userName } = global.data;
- const request = global.nodemodule["request"];
- const fs = global.nodemodule["fs-extra"];
- const { writeFileSync } = global.nodemodule["fs-extra"];
- const mention = Object.keys(mentions);
- delete require.cache[require.resolve(configPath)];
- var config = require(configPath);
- const listAdmin = ADMINBOT || config.ADMINBOT || [];
- const listNDH = NDH || config.NDH || [];
- {
- const PREFIX = config.PREFIX;
- const namebot = config.BOTNAME;
- const { commands } = global.client;
- const threadSetting = (await Threads.getData(String(event.threadID))).data || 
- {};
- const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX 
- : global.config.PREFIX;
- const dateNow = Date.now();
- const time = process.uptime(),
- hours = Math.floor(time / (60 * 60)),
- minutes = Math.floor((time % (60 * 60)) / 60),
- seconds = Math.floor(time % 60);
- const data = [
- "Bạn không thể tìm được lệnh admin tại 'help' của MintBot",
- "Đừng mong chờ gì từ MintBot.",
- "Cái đoạn này á? Của SpermBot.",
- "Nếu muốn không lỗi lệnh thì hãy xài những lệnh có trong help vì những lệnh lỗi đã bị ẩn rồi.",
- "Đây là một con bot được các coder của MiraiProject nhúng tay vào.",
- "Muốn biết sinh nhật của Mint thì hãy xài 'birthday'.",
- "Cặc.",
- "Cút.",
- "Lồn.",
- "Bạn chưa biết.",
- "Bạn đã biết.",
- "Bạn sẽ biết.",
- "Không có gì là hoàn hảo, MintBot là ví dụ.",
- "Mirai dropped.",
- "MintBot là MiraiProject nhưng module là idea của SpermBot.",
- "Bạn không biết cách sử dụng MintBot? Đừng dùng nữa.",
- "Muốn chơi game? Qua bot khác mà chơi đây không rảnh",
- "MintBot có thể hiểu phụ nữ nhưng không thể có được họ.",
- "MintBot cân spam nhưng không có gì đáng để bạn spam."
- ];
- var link = [
- "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
- "https://i.imgur.com/WXQIgMz.jpeg",
- "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
- "https://i.imgur.com/WXQIgMz.jpeg",
- "https://i.imgur.com/WXQIgMz.jpeg",
- ];
-
- var i = 1;
- var msg = [];
- const moment = require("moment-timezone");
- const date = moment.tz("Asia/Dhaka").format("hh:mm:ss");
- for (const idAdmin of listAdmin) {
- if (parseInt(idAdmin)) {
- const name = await Users.getNameUser(idAdmin);
- msg.push(`${i++}/ ${name} - ${idAdmin}`);
- }
- }
- var msg1 = [];
- for (const idNDH of listNDH) {
- if (parseInt(idNDH)) {
- const name1 = (await Users.getData(idNDH)).name
- msg1.push(`${i++}/ ${name1} - ${idNDH}`);
- }
- }
- var callback = () => 
- api.sendMessage({ body: `====「 ${namebot} 」====\n» Prefix system: ${PREFIX}\n» Prefix box: ${prefix}\n» Modules: ${commands.size}\n» Ping: ${Date.now() - dateNow}ms\n──────────────\n======「 ADMIN 」 ======\n${msg.join("\n")}\n──────────────\nBot has been working for ${hours} hour(s) ${minutes} minute(s) ${seconds} second(s)\n\n» Total users: ${global.data.allUserID.length} \n» Total threads: ${global.data.allThreadID.length}\n──────────────\n[thanks for using bot!!]`, attachment: fs.createReadStream(__dirname + "/cache/kensu.png"), }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/kensu.png"));
- return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/kensu.jpg")).on("close", () => callback()); 
- }
-}/**
- * @author RAKIB BODS
- * @warn Do not edit code or edit credits
- */
+const request = require("request");
+const fs = require("fs-extra");
+const moment = require("moment-timezone");
 
 module.exports.config = {
- name: "botinfo",
- version: "1.2.6",
- hasPermssion: 0,
- credits: "RAKIB BOSS",
- description: "🥰আসসালামু আলাইকুম 🥰",
- commandCategory: "For users",
- hide:true,
- usages: "",
- cooldowns: 5,
+  name: "botinfo",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "RAKIB BOSS",
+  description: "বট সম্পর্কে তথ্য দেখায়",
+  commandCategory: "🔰 বট তথ্য",
+  usages: "",
+  cooldowns: 5,
 };
 
+module.exports.run = async function ({ api, event, args, Users, Threads }) {
+  const { threadID } = event;
+  const { PREFIX, BOTNAME, ADMINBOT, NDH } = global.config;
+  const { commands } = global.client;
+  const threadSetting = (await Threads.getData(String(threadID))).data || {};
+  const prefix = threadSetting.hasOwnProperty("PREFIX") ? threadSetting.PREFIX : PREFIX;
 
-module.exports.run = async function ({ api, event, args, Users, permssion, getText ,Threads}) {
- const content = args.slice(1, args.length);
- const { threadID, messageID, mentions } = event;
- const { configPath } = global.client;
- const { ADMINBOT } = global.config;
- const { NDH } = global.config;
- const { userName } = global.data;
- const request = global.nodemodule["request"];
- const fs = global.nodemodule["fs-extra"];
- const { writeFileSync } = global.nodemodule["fs-extra"];
- const mention = Object.keys(mentions);
- delete require.cache[require.resolve(configPath)];
- var config = require(configPath);
- const listAdmin = ADMINBOT || config.ADMINBOT || [];
- const listNDH = NDH || config.NDH || [];
- {
- const PREFIX = config.PREFIX;
- const namebot = config.BOTNAME;
- const { commands } = global.client;
- const threadSetting = (await Threads.getData(String(event.threadID))).data || 
- {};
- const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX 
- : global.config.PREFIX;
- const dateNow = Date.now();
- const time = process.uptime(),
- hours = Math.floor(time / (60 * 60)),
- minutes = Math.floor((time % (60 * 60)) / 60),
- seconds = Math.floor(time % 60);
- const data = [
- "Bạn không thể tìm được lệnh admin tại 'help' của MintBot",
- "Đừng mong chờ gì từ MintBot.",
- "Cái đoạn này á? Của SpermBot.",
- "Nếu muốn không lỗi lệnh thì hãy xài những lệnh có trong help vì những lệnh lỗi đã bị ẩn rồi.",
- "Đây là một con bot được các coder của MiraiProject nhúng tay vào.",
- "Muốn biết sinh nhật của Mint thì hãy xài 'birthday'.",
- "Cặc.",
- "Cút.",
- "Lồn.",
- "Bạn chưa biết.",
- "Bạn đã biết.",
- "Bạn sẽ biết.",
- "Không có gì là hoàn hảo, MintBot là ví dụ.",
- "Mirai dropped.",
- "MintBot là MiraiProject nhưng module là idea của SpermBot.",
- "Bạn không biết cách sử dụng MintBot? Đừng dùng nữa.",
- "Muốn chơi game? Qua bot khác mà chơi đây không rảnh",
- "MintBot có thể hiểu phụ nữ nhưng không thể có được họ.",
- "MintBot cân spam nhưng không có gì đáng để bạn spam."
- ];
- var link = [
- "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
- "https://i.imgur.com/WXQIgMz.jpeg",
- "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
- "https://i.imgur.com/WXQIgMz.jpeg",
- "https://i.imgur.com/WXQIgMz.jpeg",
+  const time = process.uptime();
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor((time % 3600) / 60);
+  const seconds = Math.floor(time % 60);
 
- ]; 
- var i = 1;
- var msg = [];
- const moment = require("moment-timezone");
- const date = moment.tz("Asia/Dhaka").format("hh:mm:ss");
- for (const idAdmin of listAdmin) {
- if (parseInt(idAdmin)) {
- const name = await Users.getNameUser(idAdmin);
- msg.push(`${i++}/ ${name} - ${idAdmin}`);
- }
- }
- var msg1 = [];
- for (const idNDH of listNDH) {
- if (parseInt(idNDH)) {
- const name1 = (await Users.getData(idNDH)).name
- msg1.push(`${i++}/ ${name1} - ${idNDH}`);
- }
- }
- var callback = () => 
- api.sendMessage({ body: 
- `━═(BOT INFO)═━
+  let adminList = [];
+  let i = 1;
+  for (const id of ADMINBOT) {
+    const name = await Users.getNameUser(id);
+    adminList.push(`${i++}. ${name} (${id})`);
+  }
 
-☄️ 𝐁𝐨𝐭 𝐍𝐚𝐦𝐞 ☄️  
-❖ 𝐀𝐑 Ramisha ❖
+  const date = moment.tz("Asia/Dhaka").format("YYYY-MM-DD 🕙 hh:mm:ss A");
 
-🔥 𝐁𝐨𝐭 𝐀𝐝𝐦𝐢𝐧 🔥  
-🌹☞︎︎︎ 𝐑𝐀𝐊𝐈𝐁 𝐁𝐎𝐒𝐒 ☜︎︎︎ ✰🥀
+  const message = `
+╭─⪩⛥ 𝐀𝐑 𝐁𝐎𝐓 ⛥⪨─╮
+│
+│ 📅 তারিখ: ${date}
+│ 💻 বট নাম: ${BOTNAME}
+│ ⏱️ আপটাইম: ${hours} ঘণ্টা ${minutes} মিনিট ${seconds} সেকেন্ড
+│ 🧩 মোট কমান্ড: ${commands.size}
+│ 🔰 প্রিফিক্স (বক্স): ${prefix}
+│ 🔧 গ্লোবাল প্রিফিক্স: ${PREFIX}
+│ 👥 মোট ইউজার: ${global.data.allUserID.length}
+│ 🏠 মোট গ্রুপ: ${global.data.allThreadID.length}
+│ 
+╰─👑 𝐀𝐃𝐌𝐈𝐍 𝐋𝐈𝐒𝐓 👑─╯
+${adminList.join("\n")}
 
-🙈 𝐎𝐰𝐧𝐞𝐫 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤 🙈  
-➪ [𝐟𝐚𝐜𝐞𝐛𝐨𝐨𝐤.𝐜𝐨𝐦/𝐩𝐫𝐨𝐟𝐢𝐥𝐞.𝐩𝐡𝐩?𝐢𝐝=𝟏𝟎𝟎𝟎𝟒𝟒𝟒𝟖𝟕𝟑𝟒𝟎𝟒𝟐𝟒] 💞🕊️
+━━━━━━━━━━━━━━━━
 
-📞 𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩: +𝟖𝟖𝟎𝟏𝟔𝟎𝟏-𝟏𝟓𝟎𝟔𝟔𝟎  
-✉️ 𝐄𝐦𝐚𝐢𝐥: 𝐫𝐚𝐤𝐢𝐛.𝐚𝐥𝐢.𝐜𝐬𝐥@𝐠𝐦𝐚𝐢𝐥.𝐜𝐨𝐦  
-📱 𝐌𝐨𝐛𝐢𝐥𝐞: +𝟖𝟖𝟎𝟏𝟔𝟎𝟏-𝟏𝟓𝟎𝟔𝟔𝟎
+👤 মালিক: 𝐑𝐀𝐊𝐈𝐁 𝐁𝐎𝐒𝐒
+🌐 ফেসবুক: facebook.com/profile.php?id=100044487340424
+📱 মোবাইল: +8801616-092343
+📧 ইমেইল: rakib.ali.csl@gmail.com
 
-✧═══•❁❀❁•═══✧
+💖 ধন্যবাদ বট ব্যবহারের জন্য! 
+`;
 
-🌸 𝐁𝐨𝐭 𝐏𝐫𝐞𝐟𝐢𝐱 🌸  
-☞︎︎︎ " - " ☜︎︎︎ ✰
+  const imgLinks = [
+    "https://i.imgur.com/WXQIgMz.jpeg",
+    "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
+    "https://i.imgur.com/RIyZ5Km.jpg"
+  ];
+  const imageURL = imgLinks[Math.floor(Math.random() * imgLinks.length)];
+  const imagePath = __dirname + "/cache/kensu.gif";
 
-♥️ 𝐁𝐨𝐭 𝐎𝐰𝐧𝐞𝐫 ♥️  
-☞︎︎︎ 𝐑𝐀𝐊𝐈𝐁 𝐁𝐎𝐒𝐒 ☜︎︎︎ ✰
-
-✅ 𝐓𝐡𝐚𝐧𝐤𝐬 𝐟𝐨𝐫 𝐮𝐬𝐢𝐧𝐠 ✦𝐀𝐑 Ramisha✦ 🖤
-
-🦢••❍ωɳɜɽ ɳaʍɜ ••💞  
-┏━🕊️-❀-°:🎀:°-❀-💞━┓  
- 🌸✦𝐑𝐀𝐊𝐈𝐁 𝐁𝐎𝐒𝐒 ✦🌸  
-┗━🕊️-❀-°:🎀:°-❀-💞━┛`, attachment: fs.createReadStream(__dirname + "/cache/kensu.gif"), }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/kensu.gif"));
- return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/kensu.gif")).on("close", () => callback()); 
- }
-}
+  request(encodeURI(imageURL)).pipe(fs.createWriteStream(imagePath)).on("close", () => {
+    api.sendMessage({
+      body: message,
+      attachment: fs.createReadStream(imagePath)
+    }, threadID, () => fs.unlinkSync(imagePath));
+  });
+};
