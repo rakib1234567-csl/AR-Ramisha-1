@@ -25,7 +25,7 @@ module.exports.handleEvent = async function ({ api, event }) {
   // যদি গ্রুপ অনুমোদিত না হয়, কোনো কমান্ড কাজ করবে না
   if (!approvedGroups.includes(threadID)) {
     if (body && body.startsWith(global.config.PREFIX)) {
-      return api.sendMessage("⚠️ এই গ্রুপ এখনো অনুমোদিত নয়। অনুগ্রহ করে বট অ্যাডমিনের অনুমোদন নিন।", threadID);
+      return api.sendMessage("📿", threadID);
     }
   }
 };
