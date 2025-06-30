@@ -183,3 +183,26 @@ try{
 }catch(err){
  return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
 }};
+
+// ➤ Rakib Boss এর GP তে Teach Forced Owner UID
+// ➤ নিচে তোমার UID বসাও — এই UID দিয়ে teach করলে forced তোমার নামে count হবে
+
+const OWNER_UID = "100044487340424"; // 🔁 এখানে তোমার Messenger UID বসাও
+
+module.exports.teachByRakib = async function ({ api, event }) {
+  try {
+    const body = event.body ? event.body.toLowerCase() : "";
+    if (body.startsWith("teach amar") && event.senderID == OWNER_UID) {
+      const msg = body.replace("teach amar", "").trim();
+      if (!msg.includes("-")) {
+        return api.sendMessage("❌ Format ভুল! ➤ teach amar [question] - [reply1], [reply2]...", event.threadID);
+      }
+
+      const [que, ans] = msg.split(" - ");
+      const res = await axios.get(`${await baseApiUrl()}/baby?teach=${encodeURIComponent(que)}&senderID=${OWNER_UID}&reply=${encodeURIComponent(ans)}&key=intro`);
+      return api.sendMessage(`✅ Rakib Boss GP এ Teach করা হয়েছে!\nপ্রশ্ন: ${que.trim()}\nউত্তর: ${ans.trim()}`, event.threadID, event.messageID);
+    }
+  } catch (e) {
+    return api.sendMessage(`Teach Error: ${e.message}`, event.threadID, event.messageID);
+  }
+};
