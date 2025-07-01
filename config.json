@@ -22,7 +22,7 @@
     "100044487340424"
   ],
   "NDH": [],
-  "ndhOnly": true,
+  "ndhOnly": false,
   "adminOnly": false,
   "adminPaOnly": false,
   "DATABASE": {
