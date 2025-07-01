@@ -23,8 +23,8 @@
   ],
   "NDH": [],
   "ndhOnly": true,
-  "adminOnly": true,
-  "adminPaOnly": true,
+  "adminOnly": false,
+  "adminPaOnly": false,
   "DATABASE": {
     "sqlite": {
       "storage": "data.sqlite"
