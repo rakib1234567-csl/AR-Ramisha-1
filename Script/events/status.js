@@ -3,15 +3,15 @@ const request = require("request");
 
 module.exports = {
   config: {
-    name: "prefix",
+    name: "status",
     eventType: ["message"],
     version: "1.0.0",
     credits: "Rakib Boss",
-    description: "Send Islamic message & image when only prefix used"
+    description: "Send Islamic message & image when status used"
   },
 
   run: async function ({ event, api }) {
-    const prefix = "-"; // তোমার বটের prefix
+    const = "status";
 
     if (event.body !== prefix) return;
 
@@ -38,7 +38,7 @@ module.exports = {
 
     const msg = messages[Math.floor(Math.random() * messages.length)];
     const imgURL = images[Math.floor(Math.random() * images.length)];
-    const cachePath = __dirname + "/../cache/prefix.jpg";
+    const cachePath = __dirname + "/../cache/ar1.gif";
 
     const callback = () => {
       api.sendMessage({
