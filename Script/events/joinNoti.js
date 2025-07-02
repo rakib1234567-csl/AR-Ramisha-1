@@ -100,11 +100,11 @@ https://www.facebook.com/profile.php?id=100044487340424
  
             if (existsSync(path)) mkdirSync(path, { recursive: true });
  
-            const randomPath = readdirSync(join(__dirname, "cache", "joinGif", "randomgif"));
+            const randomPath = readdirSync(join(__dirname, "cache", "joinGif", "ar1.gif"));
  
             if (existsSync(pathGif)) formPush = { body: msg, attachment: createReadStream(pathvideo), mentions }
             else if (randomPath.length != 0) {
-                const pathRandom = join(__dirname, "cache", "joinGif", "randomgif", `${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
+                const pathRandom = join(__dirname, "cache", "joinGif", "ar1.gif", `${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
                 formPush = { body: msg, attachment: createReadStream(pathRandom), mentions }
             }
             else formPush = { body: msg, mentions }
