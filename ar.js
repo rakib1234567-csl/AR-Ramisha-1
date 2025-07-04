@@ -968,4 +968,3 @@ function _0x85db() {
     }
 })(),
     process["on"](_0x13e433(0xc5) + _0x13e433(0x1e9), (_0x5d4b8b, _0x2c4c76) => {});
-Ei file edit kore amar "ullash" nam er jaygay amar nam o "cyber" nam er jaygay "AR" likhe daw
