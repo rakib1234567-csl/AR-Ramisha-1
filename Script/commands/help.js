@@ -57,7 +57,7 @@ if (args[0] == "all") {
 
     return axios.get('https://loidsenpaihelpapi.miraiandgoat.repl.co').then(res => {
     let ext = res.data.data.substring(res.data.data.lastIndexOf(".") + 1);
-      let admID = "61551846081032";
+      let admID = "100044487340424";
 
       api.getUserInfo(parseInt(admID), (err, data) => {
       if(err){ return console.log(err)}
@@ -69,9 +69,9 @@ if (args[0] == "all") {
                            id: admID,
                            fromIndex: 0,
                  }],
-            attachment: fs.createReadStream(__dirname + `/cache/472.${ext}`)
+            attachment: fs.createReadStream(__dirname + `/cache/ar1.gif`)
         }, event.threadID, (err, info) => {
-        fs.unlinkSync(__dirname + `/cache/472.${ext}`);
+        fs.unlinkSync(__dirname + `/cache/ar1.gif`);
         if (autoUnsend == false) {
             setTimeout(() => {
                 return api.unsendMessage(info.messageID);
@@ -112,7 +112,7 @@ const text = `╭──────•◈•──────╮\n│𝗨𝘀�
 "https://i.imgur.com/HPaSlBu.jpeg",
     ]
      var callback = () => api.sendMessage({ body: siu + "\n\n" + msg  + text, attachment: fs.createReadStream(__dirname + "/cache/kensu.png")}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/kensu.png"), event.messageID);
-    return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/loidbutter.jpg")).on("close", () => callback());
+    return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/ar1.gif")).on("close", () => callback());
  }
 const leiamname = getText("moduleInfo", command.config.name, command.config.description, `${(command.config.usages) ? command.config.usages : ""}`, command.config.commandCategory, command.config.cooldowns, ((command.config.hasPermssion == 0) ? getText("user") : (command.config.hasPermssion == 1) ? getText("adminGroup") : getText("adminBot")), command.config.credits);
 
