@@ -126,7 +126,7 @@ module.exports.run = function ({ event, args, api }) {
 
             return api.sendMessage(
                 `====== ${name.toUpperCase()} ======\n` +
-                `- Created by: ${credits}\n` +
+                `- Created by: AR Creative Gang \n` +
                 `- Version: ${version}\n` +
                 `- Required Permission: ${hasPermssion == 0 ? "User" : hasPermssion == 1 ? "Admin" : "Support"}\n` +
                 `- Cooldown: ${cooldowns} second(s)\n` +
