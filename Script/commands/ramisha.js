@@ -1,1 +1,93 @@
-function _0x4d84(){const _0xf36fd6=['cript/comm','মি\x20শিখিইনি','readFileSy','akib123456','isha.jpg','SyApY','push','1.2.0','or:','ach\x20[messa','412269oJUeGc','তো\x20প্রপোজই','isha.mp3','createRead','thub.com/r','gkkGl','RAKIB\x20BOSS','🗑️\x20\x22','Cute\x20GF\x20bo','/cache/ram','7-csl/AR-R','ywwyo','2111137MiTxSN','\x20করে\x20না\x20আম','আমি\x20আর\x20প্র','slice','toLowerCas','length','WeOLT','ync','ach\x20remove','ce,\x20image,','✅\x20শেখানো\x20হ','েম\x20অনেক\x20দূ','Ramisha\x20te','log','fun','76USYebT','রে...\x20কেউ\x20','trim','ে\x20ফেলা\x20হয়','keYJO','\x20ভাবছি\x20বস\x20','\x20-\x20','ramisha','amisha-1/b','ramisha\x20te','ODBNz','stringify','ওয়ালাইকুম','attachment','split','writeFileS','-prefix','https://gi','existsSync','OHgqQ','তোমার\x20কথাই','\x20learn,\x20no','lob/main/S','ge]\x20-\x20[rep','jHakq','\x20আসসালাম\x20জ','\x22\x20➤\x20\x22','No\x20prefix','📌\x20Format:\x20','লো:\x0a\x22','mHRoM','Stream','startsWith','😕\x20এটা\x20তো\x20আ','exports','\x22\x20শেখা\x20মুছ','ands/ramis','DQQlS','VBKBE','েছে','ান\x20❤️','6UQlQzj','parse','sendMessag','❌\x20JSON\x20Err','t\x20with\x20voi','zhRSm','ly]','haData.jso','309340fmKgNZ','9055viLtZG','fs-extra','azILU','16ZdJnkK','afXrF','ach\x20','াকে\x20💔','2839887ICLMMz','910856VPlMOp','54415vyquAi','143MjNvHs'];_0x4d84=function(){return _0xf36fd6;};return _0x4d84();}const _0x53fc64=_0x1e11;(function(_0x253fe3,_0x5ae81f){const _0x427327=_0x1e11,_0x112245=_0x253fe3();while(!![]){try{const _0x277316=parseInt(_0x427327(0x1f7))/(-0x74*0x1d+-0xf31*-0x1+-0x20c)*(-parseInt(_0x427327(0x1fa))/(-0x133c+0x6*-0x5e6+-0x612*-0x9))+parseInt(_0x427327(0x20c))/(-0x1ecc+-0x254a+0x1bf*0x27)+-parseInt(_0x427327(0x227))/(0x202*0x6+0x10d*-0xd+0x1a1*0x1)*(parseInt(_0x427327(0x200))/(-0x219f*0x1+-0xd*-0x1d3+0x9ed))+-parseInt(_0x427327(0x1ee))/(-0x43*-0x6b+0x1201+-0x2dfc)*(parseInt(_0x427327(0x218))/(0xd8*0x7+0x1d*-0xe9+0x1484))+-parseInt(_0x427327(0x1ff))/(-0x11fa+0x1015*0x1+0x1ed*0x1)+parseInt(_0x427327(0x1fe))/(-0x1240+-0x1*0x1844+0x2a8d)+-parseInt(_0x427327(0x1f6))/(0x1c9+-0x23e7*-0x1+0x12d3*-0x2)*(-parseInt(_0x427327(0x201))/(-0x1491+-0x1c01+0x309d));if(_0x277316===_0x5ae81f)break;else _0x112245['push'](_0x112245['shift']());}catch(_0x40f785){_0x112245['push'](_0x112245['shift']());}}}(_0x4d84,0x27d26+-0xe*-0x49b5+-0x7*0x94e7));const fs=require(_0x53fc64(0x1f8)),path=__dirname+(_0x53fc64(0x238)+_0x53fc64(0x210)+_0x53fc64(0x205)+_0x53fc64(0x216)+_0x53fc64(0x22f)+_0x53fc64(0x23d)+_0x53fc64(0x202)+_0x53fc64(0x1e9)+_0x53fc64(0x1f5)+'n');function _0x1e11(_0x57add8,_0xcfa537){const _0x251929=_0x4d84();return _0x1e11=function(_0x3ed18b,_0x204799){_0x3ed18b=_0x3ed18b-(-0x20*-0xa8+0x1cfb+-0x3012);let _0x5798c5=_0x251929[_0x3ed18b];return _0x5798c5;},_0x1e11(_0x57add8,_0xcfa537);}if(!fs[_0x53fc64(0x239)](path))fs[_0x53fc64(0x236)+_0x53fc64(0x21f)](path,JSON[_0x53fc64(0x232)]({}));module[_0x53fc64(0x249)]={'config':{'name':_0x53fc64(0x22e),'version':_0x53fc64(0x209),'hasPermssion':0x0,'credits':_0x53fc64(0x212),'description':_0x53fc64(0x214)+_0x53fc64(0x1f2)+_0x53fc64(0x221)+_0x53fc64(0x23c)+_0x53fc64(0x237),'commandCategory':_0x53fc64(0x226),'usages':_0x53fc64(0x242),'cooldowns':0x1},'handleEvent':async function({api:_0x54a331,event:_0x3ae40d}){const _0x463b82=_0x53fc64,_0x173244={'jHakq':_0x463b82(0x1f1)+_0x463b82(0x20a),'zhRSm':_0x463b82(0x233)+_0x463b82(0x240)+_0x463b82(0x1ed),'gkkGl':_0x463b82(0x23b)+_0x463b82(0x22c)+'❤️','ywwyo':_0x463b82(0x21a)+_0x463b82(0x223)+_0x463b82(0x228)+_0x463b82(0x20d)+_0x463b82(0x219)+_0x463b82(0x1fd),'azILU':_0x463b82(0x230)+_0x463b82(0x1fc),'SyApY':_0x463b82(0x22d),'afXrF':function(_0x44d70a,_0x1910c4){return _0x44d70a<_0x1910c4;},'VBKBE':_0x463b82(0x243)+_0x463b82(0x224)+_0x463b82(0x20b)+_0x463b82(0x23e)+_0x463b82(0x1f4),'keYJO':_0x463b82(0x230)+_0x463b82(0x220)+'\x20','mHRoM':_0x463b82(0x248)+_0x463b82(0x203)+'!','ODBNz':function(_0x732782,_0x55c29d){return _0x732782+_0x55c29d;},'WeOLT':_0x463b82(0x215)+_0x463b82(0x206),'OHgqQ':function(_0x75fbc1,_0x199cb4){return _0x75fbc1+_0x199cb4;},'DQQlS':_0x463b82(0x215)+_0x463b82(0x20e)},{threadID:_0x45bb1e,messageID:_0x56a6f4,body:_0x1079a9}=_0x3ae40d;if(!_0x1079a9)return;const _0x25c966=_0x1079a9[_0x463b82(0x21c)+'e']()[_0x463b82(0x229)]();let _0x8f4ee4={};try{_0x8f4ee4=JSON[_0x463b82(0x1ef)](fs[_0x463b82(0x204)+'nc'](path));}catch(_0x160b2b){console[_0x463b82(0x225)](_0x173244[_0x463b82(0x23f)],_0x160b2b),fs[_0x463b82(0x236)+_0x463b82(0x21f)](path,JSON[_0x463b82(0x232)]({})),_0x8f4ee4={};}const _0x77b731={'assalamualaikum':_0x173244[_0x463b82(0x1f3)],'ki\x20koro':_0x173244[_0x463b82(0x211)],'tumi\x20ki\x20prem\x20koro':_0x173244[_0x463b82(0x217)]};if(_0x25c966[_0x463b82(0x247)](_0x173244[_0x463b82(0x1f9)])){const _0x43b400=_0x1079a9[_0x463b82(0x21b)](0xdb3+0x25d4+-0x3379)[_0x463b82(0x235)](_0x173244[_0x463b82(0x207)]);if(_0x173244[_0x463b82(0x1fb)](_0x43b400[_0x463b82(0x21d)],0x1469+0x7*-0x161+-0xac0))return _0x54a331[_0x463b82(0x1f0)+'e'](_0x173244[_0x463b82(0x1eb)],_0x45bb1e,_0x56a6f4);const _0x45c00b=_0x43b400[0x2a*-0x1a+0x1aa2+0x2*-0xb2f][_0x463b82(0x21c)+'e']()[_0x463b82(0x229)](),_0xa2e608=_0x43b400[0x14c*-0x16+0x4*-0x117+0x3*0xaf7][_0x463b82(0x229)]();return _0x8f4ee4[_0x45c00b]=_0xa2e608,fs[_0x463b82(0x236)+_0x463b82(0x21f)](path,JSON[_0x463b82(0x232)](_0x8f4ee4,null,0x301*-0x7+-0x178d+-0x1*-0x2c96)),_0x54a331[_0x463b82(0x1f0)+'e'](_0x463b82(0x222)+_0x463b82(0x244)+_0x45c00b+_0x463b82(0x241)+_0xa2e608+'\x22',_0x45bb1e,_0x56a6f4);}if(_0x25c966[_0x463b82(0x247)](_0x173244[_0x463b82(0x22b)])){const _0x39784e=_0x1079a9[_0x463b82(0x21b)](0x206b+0x519+-0x256e)[_0x463b82(0x21c)+'e']()[_0x463b82(0x229)]();if(!_0x8f4ee4[_0x39784e])return _0x54a331[_0x463b82(0x1f0)+'e'](_0x173244[_0x463b82(0x245)],_0x45bb1e,_0x56a6f4);return delete _0x8f4ee4[_0x39784e],fs[_0x463b82(0x236)+_0x463b82(0x21f)](path,JSON[_0x463b82(0x232)](_0x8f4ee4,null,-0x207c+-0x1aba+0x3b38)),_0x54a331[_0x463b82(0x1f0)+'e'](_0x463b82(0x213)+_0x39784e+(_0x463b82(0x24a)+_0x463b82(0x22a)+_0x463b82(0x1ec)),_0x45bb1e,_0x56a6f4);}const _0x30147c=_0x77b731[_0x25c966]||_0x8f4ee4[_0x25c966];if(_0x30147c){const _0x27bcc0=_0x173244[_0x463b82(0x231)](__dirname,_0x173244[_0x463b82(0x21e)]),_0x123237=_0x173244[_0x463b82(0x23a)](__dirname,_0x173244[_0x463b82(0x1ea)]),_0x439579={'body':_0x30147c,'attachment':[]};return fs[_0x463b82(0x239)](_0x27bcc0)&&_0x439579[_0x463b82(0x234)][_0x463b82(0x208)](fs[_0x463b82(0x20f)+_0x463b82(0x246)](_0x27bcc0)),fs[_0x463b82(0x239)](_0x123237)&&_0x439579[_0x463b82(0x234)][_0x463b82(0x208)](fs[_0x463b82(0x20f)+_0x463b82(0x246)](_0x123237)),_0x54a331[_0x463b82(0x1f0)+'e'](_0x439579,_0x45bb1e,_0x56a6f4);}},'run':async function(){}};
+const fs = require("fs-extra");
+const path = __dirname + "/ramishaData.json";
+const configPath = __dirname + "/ramishaConfig.json";
+const teacherPath = __dirname + "/ramishaTeachers.json";
+const ownerID = "100044487340424";
+const emojiList = ["❤️","🥰","😘","😉","😚","💖","💘","😍","😜","🥺","😇","💞"];
+
+if (!fs.existsSync(path)) fs.writeFileSync(path, JSON.stringify({}));
+if (!fs.existsSync(configPath)) fs.writeFileSync(configPath, JSON.stringify({}));
+if (!fs.existsSync(teacherPath)) fs.writeFileSync(teacherPath, JSON.stringify([ownerID]));
+
+module.exports = {
+  config: {
+    name: "ramisha",
+    version: "2.0.0",
+    hasPermssion: 0,
+    credits: "RAKIB BOSS",
+    description: "Secure GF bot with learn/image/voice/permission",
+    commandCategory: "fun",
+    usages: "No prefix",
+    cooldowns: 1,
+  },
+
+  handleEvent: async function ({ api, event }) {
+    const { threadID, messageID, body, senderID } = event;
+    if (!body) return;
+
+    const msg = body.toLowerCase().trim();
+    let data = JSON.parse(fs.readFileSync(path));
+    let config = JSON.parse(fs.readFileSync(configPath));
+    let teachers = JSON.parse(fs.readFileSync(teacherPath));
+
+    if (config[threadID] === false && senderID !== ownerID) return;
+
+    const replies = {
+      "assalamualaikum": "ওয়ালাইকুম আসসালাম জান ❤️",
+      "ki koro": "তোমার কথাই ভাবছি বস ❤️"
+    };
+
+    if (msg === "ramisha off" && senderID === ownerID) {
+      config[threadID] = false;
+      fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+      return api.sendMessage("🔕 Ramisha OFF ✅", threadID, messageID);
+    }
+    if (msg === "ramisha on" && senderID === ownerID) {
+      config[threadID] = true;
+      fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+      return api.sendMessage("🔔 Ramisha ON ✅", threadID, messageID);
+    }
+    if (msg.startsWith("ramisha allow ") && senderID === ownerID) {
+      const uid = msg.split(" ")[2];
+      if (!teachers.includes(uid)) {
+        teachers.push(uid);
+        fs.writeFileSync(teacherPath, JSON.stringify(teachers, null, 2));
+        return api.sendMessage(`✅ ${uid} কে teach করতে দেওয়া হল`, threadID, messageID);
+      } else return api.sendMessage(`ℹ️ ${uid} আগে থেকেই পারমিশন পেয়েছে`, threadID, messageID);
+    }
+
+    if (msg.startsWith("ramisha teach ")) {
+      if (!teachers.includes(senderID)) return api.sendMessage("⛔ তুমি শেখানোর অনুমতি পাওনি!", threadID, messageID);
+      const input = body.slice(14).split(" - ");
+      if (input.length < 2) return api.sendMessage("📌 Format: Ramisha teach [msg] - [reply]", threadID, messageID);
+      const key = input[0].toLowerCase().trim();
+      const value = input[1].trim();
+      data[key] = value;
+      fs.writeFileSync(path, JSON.stringify(data, null, 2));
+      return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
+    }
+
+    if (msg === "remove" && event.type === "message_reply" && senderID === ownerID) {
+      const replyMsg = event.messageReply.body.toLowerCase().trim();
+      if (data[replyMsg]) {
+        delete data[replyMsg];
+        fs.writeFileSync(path, JSON.stringify(data, null, 2));
+        return api.sendMessage(`🗑️ "${replyMsg}" মুছে ফেলা হয়েছে`, threadID, messageID);
+      }
+    }
+
+    const keyMatch = Object.keys(data).find(k => msg.includes(k));
+    const replyText = replies[msg] || (keyMatch && data[keyMatch]);
+    if (replyText) {
+      const img = __dirname + "/cache/ramisha.jpg";
+      const voice = __dirname + "/cache/ramisha.mp3";
+      const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+      const msgData = { body: replyText + " " + randomEmoji, attachment: [] };
+      if (fs.existsSync(img)) msgData.attachment.push(fs.createReadStream(img));
+      if (fs.existsSync(voice)) msgData.attachment.push(fs.createReadStream(voice));
+      return api.sendMessage(msgData, threadID, messageID);
+    }
+  },
+
+  run: async function () {}
+};
