@@ -141,7 +141,7 @@ module.exports.config = {
   credits: "Islamick Chat",
   description: "Convert color name to hexadecimal color code and provide color previews.",
   commandCategory: "Utility",
-  usages: "/Hexcolor [color]",
+  usages: "-color [color]",
   cooldowns: 5,
   usePrefix: true,
   dependencies: '',
