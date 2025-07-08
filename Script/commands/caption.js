@@ -20,7 +20,9 @@ module.exports = {
       "ekta shayri likhe daw",
       "একটা ক্যাপশন দাও",
       "একটা স্ট্যাটাস দাও",
-      "একটা শায়েরি দাও"
+      "caption"
+      "ekta ta caption likho"
+      "ekta ta caption daw"
     ];
 
     const lowerBody = body.toLowerCase();
