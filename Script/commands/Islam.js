@@ -3,10 +3,10 @@ module.exports.config = {
   name: "islam",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Islamick Chat",
+  credits: "RAKIB BOSS",
   description: "prefix VEDIO",
-  commandCategory: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
-  usages: "love10 vedio",
+  commandCategory: "islamic video",
+  usages: "islam10 video",
   cooldowns: 5,
   dependencies: {
     "request":"",
