@@ -11,13 +11,11 @@ module.exports.config = {
       "request": "",
       "axios": "",
       "node-fetch": ""
-        }
-};
-
 module.exports.run = async function ({ api, args, event}) {
   const fs = global.nodemodule["fs-extra"];
   const axios = global.nodmodule["axios"];
   const fetch = global.nodemodule["node-superfetch"];
+
 var text = args.join(" ");
 	var background = ["bedroom","class","closet","club","corridor","house","kitchen","residential","sayori_bedroom"];
 	var body = ["1b","1","2b","2"];
