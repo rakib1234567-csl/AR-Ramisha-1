@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
-const path = __dirname + "/ramishaData.json";
-const configPath = __dirname + "/ramishaConfig.json";
-const teacherPath = __dirname + "/ramishaTeachers.json";
+const path = __dirname + "https://github.com/rakib1234567-csl/AR-Ramisha-1/blob/main/Script/commands/cache/ramishaData.json";
+const configPath = __dirname + "https://github.com/rakib1234567-csl/AR-Ramisha-1/blob/main/Script/commands/cache/ramishaConfig.json";
+const teacherPath = __dirname + "https://github.com/rakib1234567-csl/AR-Ramisha-1/blob/main/Script/commands/cache/ramishaTeachers.json";
 const ownerID = "100044487340424";
 const emojiList = ["❤️","🥰","😘","😉","😚","💖","💘","😍","😜","🥺","😇","💞"];
 
