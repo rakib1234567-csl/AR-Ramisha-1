@@ -11,22 +11,25 @@ let isEnabled = true;
 module.exports = {
   config: {
     name: "ramisha",
-    version: "2.0.0",
+    version: "2.1.0",
     hasPermssion: 0,
     credits: "RAKIB BOSS",
-    description: "Cute GF bot with teach/remove, emoji reply, partial match",
+    description: "GF bot with teach/remove, partial match, admin only",
     commandCategory: "fun",
     usages: "No prefix",
-    cooldowns: 1,
+    cooldowns: 1
   },
 
-  handleEvent: async function ({ api, event }) {
-    const { threadID, messageID, senderID, body } = event;
+  handleEvent: async function ({ api, event, Users, Threads }) {
+    const { threadID, messageID, senderID, body, messageReply } = event;
     if (!body) return;
 
     const msg = body.toLowerCase().trim();
 
-    // ✅ Owner command to toggle on/off
+    // ✅ Block reply-based messages or tag-based messages
+    if (messageReply || body.includes("@")) return;
+
+    // ✅ Toggle ON/OFF for Owner
     if (senderID === ownerID) {
       if (msg === "ramisha off") {
         isEnabled = false;
@@ -40,53 +43,45 @@ module.exports = {
 
     if (!isEnabled) return;
 
-    // ✅ Load data from both files
-    let mainData = {};
-    let extraData = {};
+    // ✅ Load Data
+    let mainData = {}, extraData = {};
     try {
       mainData = JSON.parse(fs.readFileSync(mainDataPath));
-    } catch (err) {
-      console.log("❌ mainData error:", err);
-    }
+    } catch (err) {}
     try {
       extraData = JSON.parse(fs.readFileSync(extraDataPath));
-    } catch (err) {
-      console.log("❌ extraData error:", err);
-    }
+    } catch (err) {}
 
-    // ✅ Combine replies from all sources
     const allReplies = { ...extraData, ...mainData };
 
-    // ✅ Full Match (exact match)
+    // ✅ Exact Match
     if (allReplies[msg]) {
       return sendRamishaReply(api, threadID, messageID, allReplies[msg]);
     }
 
-    // ✅ Partial match (includes)
+    // ✅ Partial Match (includes)
     for (const key in allReplies) {
       if (msg.includes(key.toLowerCase())) {
         return sendRamishaReply(api, threadID, messageID, allReplies[key]);
       }
     }
 
-    // ✅ No match: send random cute/funny fallback
-    const fallback = [
-      "🥹 আমি বুঝতে পারিনি তুমি কি বললে, আরেকবার বলো না প্লিজ!",
-      "😗 বুঝিনি ঠিক মতো... তুমি কি প্রেম করতে চাও?",
-      "🙈 কি বলো এসব, আমি লজ্জা পাই জান!",
-      "তোমার মেসেজটা একটু অন্যরকম ছিল... আবার বলো? 🤭",
-      "বসকে বলবা না প্লিজ, আমি একটু confused 🫣"
-    ];
-    const randomFallback = fallback[Math.floor(Math.random() * fallback.length)];
-    return api.sendMessage(randomFallback, threadID, messageID);
+    // ✅ No match, do nothing (silent mode)
+    return;
   },
 
   run: async function () {},
 
-  // ✅ Teach / Remove commands
-  handleCommand: async function ({ event, args, api }) {
-    const { threadID, messageID, body } = event;
+  // ✅ Teach/Remove for Admins only
+  handleCommand: async function ({ api, event, args, Users, Threads }) {
+    const { threadID, messageID, senderID, body } = event;
     const msg = body.toLowerCase();
+
+    // ✅ Permission check
+    const threadInfo = await api.getThreadInfo(threadID);
+    const isAdmin = threadInfo.adminIDs.some(item => item.id === senderID) || senderID === ownerID;
+    if (!isAdmin)
+      return api.sendMessage("❌ এই কমান্ড শুধু অ্যাডমিনের জন্য অনুমোদিত!", threadID, messageID);
 
     let mainData = {};
     try {
@@ -95,7 +90,7 @@ module.exports = {
       mainData = {};
     }
 
-    // Teach
+    // ✅ Teach
     if (msg.startsWith("ramisha teach ")) {
       const input = body.slice(14).split(" - ");
       if (input.length < 2) {
@@ -105,10 +100,10 @@ module.exports = {
       const value = input[1].trim();
       mainData[key] = value;
       fs.writeFileSync(mainDataPath, JSON.stringify(mainData, null, 2));
-      return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
+      return api.sendMessage(`✅ শেখানো হয়েছে:\n"${key}" ➤ "${value}"`, threadID, messageID);
     }
 
-    // Remove
+    // ✅ Remove
     if (msg.startsWith("ramisha teach remove ")) {
       const key = body.slice(22).toLowerCase().trim();
       if (!mainData[key]) return api.sendMessage("😕 এটা তো আমি শিখিইনি!", threadID, messageID);
@@ -119,7 +114,7 @@ module.exports = {
   }
 };
 
-// ✅ Attachment supportive reply function
+// ✅ Helper function to send message with attachment
 function sendRamishaReply(api, threadID, messageID, replyText) {
   const imgPath = __dirname + "/cache/ramisha.jpg";
   const voicePath = __dirname + "/cache/ramisha.mp3";
