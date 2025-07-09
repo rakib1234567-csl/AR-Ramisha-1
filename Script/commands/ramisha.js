@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = __dirname + "/ramishaData.json";
+console.log("Ramisha JSON Path:", path);
 
 if (!fs.existsSync(path)) fs.writeFileSync(path, JSON.stringify({}));
 
