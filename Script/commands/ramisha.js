@@ -85,20 +85,3 @@ if (replyText) {  
 
 run: async function () {}
 };"
-
-Ei file ami caitecu amar parmition cara onno kew jate kuno gpte na use korte pare.
-Je kuno gpte main approve dile o ei cmd er jonno alada vabe approve dewa lagbe ei system kore daw... Ei holo amar uid 100044487340424 ami owner r kew prefix change korle cmd kaj korbe na,  emon system add kore daw. Bot er reply te giye ami remove bolle cmd remove hoye jabe emon option add kore diben.  R amai amr j kuno gp tekhe amar ei cmd off on korar parmiton takhbe.. R sob message er sathe ekta rendom emoji sathe add kore message er reply dibe, r tumi caile alada alada kore teacher der command rakhar system korte paro.
-Ami owner & admin
-Ami j kaw ke teach korar parmition na Dile kew teach korte parbe na.. Future addd kore daw..
-Rendom kisu reply dibe jemon
-Amar ramishay teach kora ace 
-"Tumi ki amr sathe prem korba -  Ami keno tumar sathe prem korte jabo ami ekta valo meye. "
-Ekhn kew bollo "prem korba" tokn se oi ager mssager er reply dibe "Ami keno tumar sathe prem korte jabo ami ekta valo meye."
-
-Erokom add korle valo hobe.
-
-R  imag er reply diye jodi boli 
-Ramisha teach ekta islamic image daw -  [image]
-Tokon se massage er replay hisabe image ta nibe..
-R je kuno kisu remove korte hole image ba message er reply diye remove bolle remove kore dibe.
-
