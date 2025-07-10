@@ -9,18 +9,18 @@ const ownerID = "100044487340424"; // তোমার UID
 let isEnabled = true;
 
 module.exports = {
-  config: {
-    name: "ramisha",
-    version: "2.1.0",
-    hasPermssion: 0,
-    credits: "RAKIB BOSS",
-    description: "GF bot with teach/remove, partial match, admin only",
-    commandCategory: "fun",
-    usages: "No prefix",
-    cooldowns: 1
-  },
+  config: {
+    name: "ramisha",
+    version: "1.2.0",
+    hasPermssion: 0,
+    credits: "RAKIB BOSS",
+    description: "Cute GF bot with voice, image, learn, no-prefix",
+    commandCategory: "fun",
+    usages: "No prefix",
+    cooldowns: 1,
+  },
 
-  handleEvent: async function ({ api, event, Users, Threads }) {
+handleEvent: async function ({ api, event, Users, Threads }) {
     const { threadID, messageID, senderID, body, messageReply } = event;
     if (!body) return;
 
@@ -40,9 +40,7 @@ module.exports = {
         return api.sendMessage("✅ Ramisha আবার চালু হয়েছে", threadID);
       }
     }
-
-    if (!isEnabled) return;
-
+if (!isEnabled) return;
     // ✅ Load Data
     let mainData = {}, extraData = {};
     try {
@@ -72,12 +70,29 @@ module.exports = {
 
   run: async function () {},
 
-  // ✅ Teach/Remove for Admins only
-  handleCommand: async function ({ api, event, args, Users, Threads }) {
-    const { threadID, messageID, senderID, body } = event;
-    const msg = body.toLowerCase();
 
-    // ✅ Permission check
+
+  handleEvent: async function ({ api, event }) {
+    const { threadID, messageID, body } = event;
+    if (!body) return;
+
+    const msg = body.toLowerCase().trim();
+
+    let data = {};
+    try {
+      data = JSON.parse(fs.readFileSync(path));
+    } catch (err) {
+      console.log("❌ JSON Error:", err);
+      fs.writeFileSync(path, JSON.stringify({}));
+      data = {};
+    }
+
+    const replies = {
+      "assalamualaikum": "ওয়ালাইকুম আসসালাম জান ❤️",
+      "ki koro": "তোমার কথাই ভাবছি বস ❤️",
+      "tumi ki prem koro": "আমি আর প্রেম অনেক দূরে... কেউ তো প্রপোজই করে না আমাকে 💔",
+    };
+// ✅ Permission check
     const threadInfo = await api.getThreadInfo(threadID);
     const isAdmin = threadInfo.adminIDs.some(item => item.id === senderID) || senderID === ownerID;
     if (!isAdmin)
@@ -89,37 +104,51 @@ module.exports = {
     } catch {
       mainData = {};
     }
+    // Teach
+    if (msg.startsWith("ramisha teach ")) {
+      const input = body.slice(14).split(" - ");
+      if (input.length < 2)
+        return api.sendMessage("📌 Format: Ramisha teach [message] - [reply]", threadID, messageID);
+      const key = input[0].toLowerCase().trim();
+      const value = input[1].trim();
+      data[key] = value;
+      fs.writeFileSync(path, JSON.stringify(data, null, 2));
+      return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
+    }
 
-    // ✅ Teach
-    if (msg.startsWith("ramisha teach ")) {
-      const input = body.slice(14).split(" - ");
-      if (input.length < 2) {
-        return api.sendMessage("📌 Format:\nRamisha teach [message] - [reply]", threadID, messageID);
-      }
-      const key = input[0].toLowerCase().trim();
-      const value = input[1].trim();
-      mainData[key] = value;
-      fs.writeFileSync(mainDataPath, JSON.stringify(mainData, null, 2));
-      return api.sendMessage(`✅ শেখানো হয়েছে:\n"${key}" ➤ "${value}"`, threadID, messageID);
-    }
+    // Remove
+    if (msg.startsWith("ramisha teach remove ")) {
+      const key = body.slice(22).toLowerCase().trim();
+      if (!data[key]) return api.sendMessage("😕 এটা তো আমি শিখিইনি!", threadID, messageID);
+      delete data[key];
+      fs.writeFileSync(path, JSON.stringify(data, null, 2));
+      return api.sendMessage(`🗑️ "${key}" শেখা মুছে ফেলা হয়েছে`, threadID, messageID);
+    }
 
-    // ✅ Remove
-    if (msg.startsWith("ramisha teach remove ")) {
-      const key = body.slice(22).toLowerCase().trim();
-      if (!mainData[key]) return api.sendMessage("😕 এটা তো আমি শিখিইনি!", threadID, messageID);
-      delete mainData[key];
-      fs.writeFileSync(mainDataPath, JSON.stringify(mainData, null, 2));
-      return api.sendMessage(`🗑️ "${key}" শেখা মুছে ফেলা হয়েছে`, threadID, messageID);
-    }
-  }
+    // If match found in either object
+    const replyText = replies[msg] || data[msg];
+    if (replyText) {
+      const imgPath = __dirname + "/cache/ramisha.jpg";
+      const voicePath = __dirname + "/cache/ramisha.mp3";
+
+      const msgData = {
+        body: replyText,
+        attachment: []
+      };
+
+      // Image attach if exists
+      if (fs.existsSync(imgPath)) {
+        msgData.attachment.push(fs.createReadStream(imgPath));
+      }
+
+      // Voice attach if exists
+      if (fs.existsSync(voicePath)) {
+        msgData.attachment.push(fs.createReadStream(voicePath));
+      }
+
+      return api.sendMessage(msgData, threadID, messageID);
+    }
+  },
+
+  run: async function () {}
 };
-
-// ✅ Helper function to send message with attachment
-function sendRamishaReply(api, threadID, messageID, replyText) {
-  const imgPath = __dirname + "/cache/ramisha.jpg";
-  const voicePath = __dirname + "/cache/ramisha.mp3";
-  const msgData = { body: replyText, attachment: [] };
-  if (fs.existsSync(imgPath)) msgData.attachment.push(fs.createReadStream(imgPath));
-  if (fs.existsSync(voicePath)) msgData.attachment.push(fs.createReadStream(voicePath));
-  return api.sendMessage(msgData, threadID, messageID);
-}
