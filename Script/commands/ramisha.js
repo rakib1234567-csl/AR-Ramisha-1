@@ -1,117 +1,95 @@
 const fs = require("fs-extra");
 const path = __dirname;
-const mainDataPath = path + "/ramishaData.json";
-const extraDataPath = path + "/ramishaExtra.json";
+const mainPath = path + "/ramishaData.json";
+const extraPath = path + "/ramishaExtra.json";
 const ownerID = "100044487340424";
-let isEnabled = true;
+let isOn = true;
 
-if (!fs.existsSync(mainDataPath)) fs.writeFileSync(mainDataPath, JSON.stringify({}));
-if (!fs.existsSync(extraDataPath)) fs.writeFileSync(extraDataPath, JSON.stringify({}));
+if (!fs.existsSync(mainPath)) fs.writeFileSync(mainPath, JSON.stringify({}));
+if (!fs.existsSync(extraPath)) fs.writeFileSync(extraPath, JSON.stringify({}));
 
 module.exports = {
   config: {
     name: "ramisha",
-    version: "2.0.0",
+    version: "3.0",
     hasPermssion: 0,
     credits: "RAKIB BOSS",
-    description: "Cute GF bot with voice, image, learn, no-prefix",
-    commandCategory: "fun",
-    usages: "No prefix",
+    description: "Smart GF Bot With All Features",
+    commandCategory: "No Prefix",
+    usages: "no prefix",
     cooldowns: 1,
   },
 
   handleEvent: async function ({ api, event }) {
-    const { threadID, messageID, senderID, body } = event;
-    if (!body || body.includes("@") || event.messageReply) return;
-    
+    const { threadID, messageID, senderID, body, messageReply } = event;
+    if (!body || body.includes("@") || messageReply) return;
+
     const msg = body.toLowerCase().trim();
 
-    // Owner Toggle
-    if (senderID === ownerID) {
-      if (msg === "ramisha off") {
-        isEnabled = false;
-        return api.sendMessage("❌ Ramisha বন্ধ করা হয়েছে", threadID);
-      }
-      if (msg === "ramisha on") {
-        isEnabled = true;
-        return api.sendMessage("✅ Ramisha আবার চালু হয়েছে", threadID);
-      }
+    // ✅ ON/OFF System
+    if (senderID == ownerID && msg == "ramisha off") {
+      isOn = false;
+      return api.sendMessage("❌ Ramisha বন্ধ করা হলো", threadID);
+    }
+    if (senderID == ownerID && msg == "ramisha on") {
+      isOn = true;
+      return api.sendMessage("✅ Ramisha আবার চালু হয়েছে", threadID);
     }
 
-    if (!isEnabled) return;
+    if (!isOn) return;
 
-    let mainData = {}, extraData = {};
-    try {
-      mainData = JSON.parse(fs.readFileSync(mainDataPath));
-    } catch (e) {}
-    try {
-      extraData = JSON.parse(fs.readFileSync(extraDataPath));
-    } catch (e) {}
+    // ✅ Teach
+    if (msg.startsWith("ramisha teach ")) {
+      const input = body.slice(14).split(" - ");
+      if (input.length < 2)
+        return api.sendMessage("📌 Format: ramisha teach [message] - [reply]", threadID, messageID);
+      const key = input[0].toLowerCase().trim();
+      const value = input[1].trim();
+      const data = JSON.parse(fs.readFileSync(mainPath));
+      data[key] = value;
+      fs.writeFileSync(mainPath, JSON.stringify(data, null, 2));
+      return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
+    }
 
-    const allReplies = { ...extraData, ...mainData };
+    // ✅ Remove
+    if (msg.startsWith("ramisha teach remove ")) {
+      const key = body.slice(22).toLowerCase().trim();
+      const data = JSON.parse(fs.readFileSync(mainPath));
+      if (!data[key]) return api.sendMessage("😕 এটা তো শেখানোই হয়নি!", threadID, messageID);
+      delete data[key];
+      fs.writeFileSync(mainPath, JSON.stringify(data, null, 2));
+      return api.sendMessage(`🗑️ "${key}" শেখা মুছে ফেলা হলো`, threadID, messageID);
+    }
+
+    // ✅ Message Reply
+    let mainData = JSON.parse(fs.readFileSync(mainPath));
+    let extraData = JSON.parse(fs.readFileSync(extraPath));
+    let finalData = { ...extraData, ...mainData };
 
     // Exact match
-    if (allReplies[msg]) {
-      return sendRamishaReply(api, threadID, messageID, allReplies[msg]);
+    if (finalData[msg]) {
+      return sendRamisha(api, threadID, messageID, finalData[msg]);
     }
 
     // Partial match
-    for (const key in allReplies) {
-      if (msg.includes(key.toLowerCase())) {
-        return sendRamishaReply(api, threadID, messageID, allReplies[key]);
+    for (let key in finalData) {
+      if (msg.includes(key)) {
+        return sendRamisha(api, threadID, messageID, finalData[key]);
       }
     }
   },
 
-  run: async function ({ api, event }) {
-    const { threadID, messageID, body, senderID } = event;
-    if (!body || !body.startsWith("ramisha")) return;
-    const msg = body.toLowerCase().trim();
-
-    let data = {};
-    try {
-      data = JSON.parse(fs.readFileSync(mainDataPath));
-    } catch (e) {}
-
-    // Permission
-    if (senderID !== ownerID) {
-      return api.sendMessage("❌ এই কমান্ড শুধু মালিক ব্যবহার করতে পারবে!", threadID, messageID);
-    }
-
-    // Teach
-    if (msg.startsWith("ramisha teach ")) {
-      const input = body.slice(14).split(" - ");
-      if (input.length < 2)
-        return api.sendMessage("📌 Format: Ramisha teach [message] - [reply]", threadID, messageID);
-      const key = input[0].toLowerCase().trim();
-      const value = input[1].trim();
-      data[key] = value;
-      fs.writeFileSync(mainDataPath, JSON.stringify(data, null, 2));
-      return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
-    }
-
-    // Remove
-    if (msg.startsWith("ramisha teach remove ")) {
-      const key = body.slice(22).toLowerCase().trim();
-      if (!data[key]) return api.sendMessage("😕 এটা তো আমি শিখিইনি!", threadID, messageID);
-      delete data[key];
-      fs.writeFileSync(mainDataPath, JSON.stringify(data, null, 2));
-      return api.sendMessage(`🗑️ "${key}" শেখা মুছে ফেলা হয়েছে`, threadID, messageID);
-    }
-  }
+  run: async () => {},
 };
 
-function sendRamishaReply(api, threadID, messageID, replyText) {
-  const imgPath = __dirname + "/cache/ramisha.jpg";
-  const voicePath = __dirname + "/cache/ramisha.mp3";
-
+function sendRamisha(api, threadID, messageID, replyText) {
+  const img = __dirname + "/cache/ramisha.jpg";
+  const voice = __dirname + "/cache/ramisha.mp3";
   const msgData = {
     body: replyText,
     attachment: []
   };
-
-  if (fs.existsSync(imgPath)) msgData.attachment.push(fs.createReadStream(imgPath));
-  if (fs.existsSync(voicePath)) msgData.attachment.push(fs.createReadStream(voicePath));
-
+  if (fs.existsSync(img)) msgData.attachment.push(fs.createReadStream(img));
+  if (fs.existsSync(voice)) msgData.attachment.push(fs.createReadStream(voice));
   return api.sendMessage(msgData, threadID, messageID);
 }
