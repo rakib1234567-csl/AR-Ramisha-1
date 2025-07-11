@@ -14,7 +14,7 @@ module.exports.config = {
 };
 
 module.exports.run = async function({ api, event }) {
-  const apiURL = "https://your-api.com/baby/getall"; // 🔁 এখানে তোমার API লিংক দাও
+  const apiURL = "https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json"; // 🔁 এখানে তোমার API লিংক দাও
   const savePath = path.join(__dirname, "..", "babyData.json");
 
   try {
