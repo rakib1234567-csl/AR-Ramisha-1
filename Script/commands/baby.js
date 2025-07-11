@@ -1,208 +1,87 @@
-const axios = require('axios');
+const fs = require("fs-extra"); const mainDataPath = __dirname + "/ramishaData.json"; const extraDataPath = __dirname + "/ramishaExtra.json";
 
-const baseApiUrl = async () => {
- const base = await axios.get(`https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json`);
- return base.data.api;
-};
+console.log("Ramisha JSON Path:", mainDataPath);
 
-module.exports.config = {
- name: "baby",
- version: "6.9.9",
- credits: "dipto",
- cooldowns: 0,
- hasPermssion: 0,
- description: "better than all sim simi",
- commandCategory: "chat",
- category: "chat",
- usePrefix: true,
- prefix: true,
- usages: `[anyMessage] OR\nteach [YourMessage] - [Reply1], [Reply2], [Reply3]... OR\nteach [react] [YourMessage] - [react1], [react2], [react3]... OR\nremove [YourMessage] OR\nrm [YourMessage] - [indexNumber] OR\nmsg [YourMessage] OR\nlist OR\nall OR\nedit [YourMessage] - [NewMessage]`,
-};
+if (!fs.existsSync(mainDataPath)) fs.writeFileSync(mainDataPath, JSON.stringify({})); if (!fs.existsSync(extraDataPath)) fs.writeFileSync(extraDataPath, JSON.stringify({}));
 
-module.exports.run = async function ({ api, event, args, Users }) {
- try {
- const link = `${await baseApiUrl()}/baby`;
- const dipto = args.join(" ").toLowerCase();
- const uid = event.senderID;
+const ownerID = "100044487340424"; // Replace with your UID let isEnabled = true;
 
- if (!args[0]) {
- const ran = ["Bolo baby", "hum", "type help baby", "type !baby hi"];
- const r = ran[Math.floor(Math.random() * ran.length)];
- return api.sendMessage(r, event.threadID, event.messageID);
- }
+module.exports = { config: { name: "ramisha", version: "1.3.0", hasPermssion: 0, credits: "RAKIB BOSS", description: "Cute GF bot with learn & voice, dual source", commandCategory: "fun", usages: "No prefix", cooldowns: 1, },
 
- if (args[0] === 'remove') {
- const fina = dipto.replace("remove ", "");
- const respons = await axios.get(`${link}?remove=${fina}&senderID=${uid}`);
- return api.sendMessage(respons.data.message, event.threadID, event.messageID);
- }
+handleEvent: async function ({ api, event }) { const { threadID, messageID, senderID, body } = event; if (!body) return; const msg = body.toLowerCase().trim();
 
- if (args[0] === 'rm' && dipto.includes('-')) {
- const [fi, f] = dipto.replace("rm ", "").split(' - ');
- const respons = await axios.get(`${link}?remove=${fi}&index=${f}`);
- return api.sendMessage(respons.data.message, event.threadID, event.messageID);
- }
-
- if (args[0] === 'list') {
- if (args[1] === 'all') {
- const res = await axios.get(`${link}?list=all`);
- const data = res.data.teacher.teacherList;
- const teachers = await Promise.all(data.map(async (item) => {
- const number = Object.keys(item)[0];
- const value = item[number];
- const name = await Users.getName(number) || "unknown";
- return { name, value };
- }));
- teachers.sort((a, b) => b.value - a.value);
- const output = teachers.map((teacher, index) => `${index + 1}/ ${teacher.name}: ${teacher.value}`).join('\n');
- return api.sendMessage(`Total Teach = ${res.data.length}\n\n👑 | List of Teachers of baby\n${output}`, event.threadID, event.messageID);
- } else {
- const respo = await axios.get(`${link}?list=all`);
- return api.sendMessage(`Total Teach = ${respo.data.length}`, event.threadID, event.messageID);
- }
- }
-
- if (args[0] === 'msg' || args[0] === 'message') {
- const fuk = dipto.replace("msg ", "");
- const respo = await axios.get(`${link}?list=${fuk}`);
- return api.sendMessage(`Message ${fuk} = ${respo.data.data}`, event.threadID, event.messageID);
- }
-
- if (args[0] === 'edit') {
- const command = dipto.split(' - ')[1];
- if (command.length < 2) {
- return api.sendMessage('❌ | Invalid format! Use edit [YourMessage] - [NewReply]', event.threadID, event.messageID);
- }
- const res = await axios.get(`${link}?edit=${args[1]}&replace=${command}`);
- return api.sendMessage(`changed ${res.data.message}`, event.threadID, event.messageID);
- }
-
- if (args[0] === 'teach' && args[1] !== 'amar' && args[1] !== 'react') {
- const [comd, command] = dipto.split(' - ');
- const final = comd.replace("teach ", "");
- if (command.length < 2) {
- return api.sendMessage('❌ | Invalid format! Use [YourMessage] - [Reply1], [Reply2], [Reply3]... OR remove [YourMessage] OR list OR edit [YourMessage] - [NewReply]', event.threadID, event.messageID);
- }
- const re = await axios.get(`${link}?teach=${final}&reply=${command}&senderID=${uid}`);
- const name = await Users.getName(re.data.teacher) || "";
- return api.sendMessage(`✅ Replies added ${re.data.message}\nTeacher: ${name || "unknown"}\nTeachs: ${re.data.teachs}`, event.threadID, event.messageID);
- }
-
- if (args[0] === 'teach' && args[1] === 'amar') {
- const [comd, command] = dipto.split(' - ');
- const final = comd.replace("teach ", "");
- if (command.length < 2) {
- return api.sendMessage('❌ | Invalid format! Use [YourMessage] - [Reply1], [Reply2], [Reply3]... OR remove [YourMessage] OR list OR edit [YourMessage] - [NewReply]', event.threadID, event.messageID);
- }
- const re = await axios.get(`${link}?teach=${final}&senderID=${uid}&reply=${command}&key=intro`);
- return api.sendMessage(`✅ Replies added ${re.data.message}`, event.threadID, event.messageID);
- }
-
- if (args[0] === 'teach' && args[1] === 'react') {
- const [comd, command] = dipto.split(' - ');
- const final = comd.replace("teach react ", "");
- if (command.length < 2) {
- return api.sendMessage('❌ | Invalid format! Use [teach] [YourMessage] - [Reply1], [Reply2], [Reply3]... OR [teach] [react] [YourMessage] - [react1], [react2], [react3]... OR remove [YourMessage] OR list OR edit [YourMessage] - [NewReply]', event.threadID, event.messageID);
- }
- const re = await axios.get(`${link}?teach=${final}&react=${command}`);
- return api.sendMessage(`✅ Replies added ${re.data.message}`, event.threadID, event.messageID);
- }
-
- if (['amar name ki', 'amr nam ki', 'amar nam ki', 'amr name ki'].some(phrase => dipto.includes(phrase))) {
- const response = await axios.get(`${link}?text=amar name ki&senderID=${uid}&key=intro`);
- return api.sendMessage(response.data.reply, event.threadID, event.messageID);
- }
-
- const a = (await axios.get(`${link}?text=${dipto}&senderID=${uid}&font=1`)).data.reply;
- return api.sendMessage(a, event.threadID,
- (error, info) => {
- global.client.handleReply.push({
- name: this.config.name,
- type: "reply",
- messageID: info.messageID,
- author: event.senderID,
- lnk: a,
- apiUrl: link
- });
- }, event.messageID);
-
- } catch (e) {
- console.error('Error in command execution:', e);
- return api.sendMessage(`Error: ${e.message}`, event.threadID, event.messageID);
- }
-};
-
-module.exports.handleReply = async function ({ api, event, handleReply }) {
-try{
- if (event.type == "message_reply") {
- const reply = event.body.toLowerCase();
- if (isNaN(reply)) {
- const b = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(reply)}&senderID=${event.senderID}&font=1`)).data.reply;
- await api.sendMessage(b, event.threadID, (error, info) => {
- global.client.handleReply.push({
- name: this.config.name,
- type: "reply",
- messageID: info.messageID,
- author: event.senderID,
- lnk: b
- });
- }, event.messageID,
- )}}
-}catch(err){
- return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
-}};
-
- 
-module.exports.handleEvent = async function ({ api, event }) {
-try{
- const body = event.body ? event.body.toLowerCase() : ""
- if(body.startsWith("Ramisha") || body.startsWith("bby") || body.startsWith("Bot")){
- const arr = body.replace(/^\S+\s*/, "")
- if(!arr) {
- await api.sendMessage("╭•┄┅══❁AR❁══┅┄•╮\n  হুম জান\n বলো, আমি তোমার অপেক্ষায় আছি __ღ༉۵\n╰•┄┅══❁AR❁══┅┄•╯ ", event.threadID, (error, info) => {
- global.client.handleReply.push({
- name: this.config.name,
- type: "reply",
- messageID: info.messageID,
- author: event.senderID
- });
- }, event.messageID,
- )
- }
- const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(arr)}&senderID=${event.senderID}&font=1`)).data.reply; 
- await api.sendMessage(a, event.threadID, (error, info) => {
- global.client.handleReply.push({
- name: this.config.name,
- type: "reply",
- messageID: info.messageID,
- author: event.senderID,
- lnk: a
- });
- }, event.messageID,
- )}
-}catch(err){
- return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
-}};
-
-// ➤ Rakib Boss এর GP তে Teach Forced Owner UID
-// ➤ নিচে তোমার UID বসাও — এই UID দিয়ে teach করলে forced তোমার নামে count হবে
-
-const OWNER_UID = "100044487340424"; // 🔁 এখানে তোমার Messenger UID বসাও
-
-module.exports.teachByRakib = async function ({ api, event }) {
-  try {
-    const body = event.body ? event.body.toLowerCase() : "";
-    if (body.startsWith("teach amar") && event.senderID == OWNER_UID) {
-      const msg = body.replace("teach amar", "").trim();
-      if (!msg.includes("-")) {
-        return api.sendMessage("❌ Format ভুল! ➤ teach amar [question] - [reply1], [reply2]...", event.threadID);
-      }
-
-      const [que, ans] = msg.split(" - ");
-      const res = await axios.get(`${await baseApiUrl()}/baby?teach=${encodeURIComponent(que)}&senderID=${OWNER_UID}&reply=${encodeURIComponent(ans)}&key=intro`);
-      return api.sendMessage(`✅ Rakib Boss GP এ Teach করা হয়েছে!\nপ্রশ্ন: ${que.trim()}\nউত্তর: ${ans.trim()}`, event.threadID, event.messageID);
-    }
-  } catch (e) {
-    return api.sendMessage(`Teach Error: ${e.message}`, event.threadID, event.messageID);
+// Owner-only toggle on/off
+if (senderID === ownerID) {
+  if (msg === "ramisha off") {
+    isEnabled = false;
+    return api.sendMessage("❌ Ramisha বন্ধ করা হয়েছে", threadID);
   }
+  if (msg === "ramisha on") {
+    isEnabled = true;
+    return api.sendMessage("✅ Ramisha আবার চালু হয়েছে", threadID);
+  }
+}
+
+if (!isEnabled) return;
+
+let mainData = {}, extraData = {};
+try {
+  mainData = JSON.parse(fs.readFileSync(mainDataPath));
+} catch (err) {
+  console.log("❌ Main JSON Error:", err);
+  fs.writeFileSync(mainDataPath, JSON.stringify({}));
+}
+
+try {
+  extraData = JSON.parse(fs.readFileSync(extraDataPath));
+} catch (err) {
+  console.log("❌ Extra JSON Error:", err);
+  fs.writeFileSync(extraDataPath, JSON.stringify({}));
+}
+
+const replies = {
+  "assalamualaikum": "ওয়ালাইকুম আসসালাম জান ❤️",
+  "ki koro": "তোমার কথাই ভাবছি বস ❤️",
+  "tumi ki prem koro": "আমি আর প্রেম অনেক দূরে... কেউ তো প্রপোজই করে না আমাকে 💔",
 };
+
+// Teach
+if (msg.startsWith("ramisha teach ")) {
+  const input = body.slice(14).split(" - ");
+  if (input.length < 2)
+    return api.sendMessage("📌 Format: Ramisha teach [message] - [reply]", threadID, messageID);
+  const key = input[0].toLowerCase().trim();
+  const value = input[1].trim();
+  mainData[key] = value;
+  fs.writeFileSync(mainDataPath, JSON.stringify(mainData, null, 2));
+  return api.sendMessage(`✅ শেখানো হলো:\n"${key}" ➤ "${value}"`, threadID, messageID);
+}
+
+// Remove
+if (msg.startsWith("ramisha teach remove ")) {
+  const key = body.slice(22).toLowerCase().trim();
+  if (!mainData[key]) return api.sendMessage("😕 এটা তো আমি শিখিইনি!", threadID, messageID);
+  delete mainData[key];
+  fs.writeFileSync(mainDataPath, JSON.stringify(mainData, null, 2));
+  return api.sendMessage(`🗑️ \"${key}\" শেখা মুছে ফেলা হয়েছে`, threadID, messageID);
+}
+
+// Combine all replies
+const allReplies = { ...replies, ...extraData, ...mainData };
+const replyText = allReplies[msg];
+if (replyText) {
+  const imgPath = __dirname + "/cache/ramisha.jpg";
+  const voicePath = __dirname + "/cache/ramisha.mp3";
+  const msgData = {
+    body: replyText,
+    attachment: []
+  };
+  if (fs.existsSync(imgPath)) msgData.attachment.push(fs.createReadStream(imgPath));
+  if (fs.existsSync(voicePath)) msgData.attachment.push(fs.createReadStream(voicePath));
+  return api.sendMessage(msgData, threadID, messageID);
+}
+
+},
+
+run: async function () {} };
+
